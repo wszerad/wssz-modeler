@@ -2,7 +2,7 @@
 	"name": "@wssz/modeler",
 	"author": "wszerad91@gmail.com",
 	"license": "MIT",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"devDependencies": {
 		"@types/chai": "^4.2.0",
 		"@types/mocha": "^5.2.7",
@@ -16,5 +16,9 @@
 		"reflect-metadata": "^0.1.13",
 		"typescript": "^3.5.3",
 		"babel-polyfill": "^6.26.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wszerad/wssz-modeler.git"
 	}
 }
