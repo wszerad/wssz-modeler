@@ -5,6 +5,7 @@ const markerMeta = Symbol();
 export type PropertyKey = string | symbol;
 export type Markers = Map<PropertyKey, Map<Function, any>>;
 
+export function defineMarker(): (options: any) => Function
 export function defineMarker<S extends undefined>(): () => Function
 export function defineMarker<S>(): (options: S) => Function
 export function defineMarker<S>() {

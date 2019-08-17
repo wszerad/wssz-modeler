@@ -50,38 +50,39 @@ getMarkers(CustomClass).get('overwrittenType').get(Type))   // also String
  
 #### Decorators
 ```ts
-@Type<any>
-@ArrayType<any>
-@UniqueItems<>
-@Examples<ExamplesType>
-@Required<>
-@Minimum<number>
-@Maximum<number>
-@ExclusiveMinimum<number>
-@ExclusiveMaximum<number>
-@MultipleOf<number>
-@MaxLength<number>
-@MinLength<number>
-@Format<Formats>
-@Pattern<RegExp>
-@Enum<>
-@MaxItems<number>
-@MinItems<number>
-@Default<any>
-@Example<any>
-@Description<any>
+export enum Formats {
+	Date = 'date',
+	Time = 'time',
+	DateTime = 'date-time',
+	URI = 'uri',
+	Email = 'email',
+	Hostname = 'hostname',
+	IPv4 = 'ipv4',
+	IPv6 = 'ipv6',
+	Regex = 'regex'
+}
 
 type ExamplesType = {[key: string]: {value: any}};
+type BasicType = string | number | boolean | RegExp | Object;
+type BasicFunction = () => BasicType;
 
-enum Formats {
-    Date = 'date',
-    Time = 'time',
-    DateTime = 'date-time',
-    URI = 'uri',
-    Email = 'email',
-    Hostname = 'hostname',
-    IPv4 = 'ipv4',
-    IPv6 = 'ipv6',
-    Regex = 'reqex'
-}
+Required<undefined>
+Minimum<number>
+Maximum<number>
+ExclusiveMinimum<number>
+ExclusiveMaximum<number>
+MultipleOf<number>
+MaxLength<number>
+MinLength<number>
+Format<Formats>
+Pattern<RegExp>
+Enum<(string | number)[] | {[key: string]: string | number}>
+MaxItems<number>
+MinItems<number>
+Default<BasicType | BasicType[] | BasicFunction>
+Example<BasicType>
+ArrayType<Object>
+UniqueItems<undefined>
+Examples<ExamplesType>
+Description<string>
 ```
