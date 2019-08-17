@@ -1,2 +1,2 @@
 export * from './src/decorators';
-export {defineMarker, getMarkers} from './src/utils';
+export {defineMarker, getMarkers, hasMarkers, Markers} from './src/utils';

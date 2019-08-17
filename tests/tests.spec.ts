@@ -45,7 +45,7 @@ describe('tests', () => {
 
 	describe('tests', () => {
 		it('should create marker and be able to read stored data', () => {
-			const CustomMarker = defineMarker<String>();
+			const CustomMarker = defineMarker<string>();
 			class CustomClass {
 				@CustomMarker('test')
 				p: any;
