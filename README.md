@@ -76,7 +76,7 @@ MaxLength<number>
 MinLength<number>
 Format<Formats>
 Pattern<RegExp>
-Enum<(string | number)[] | {[key: string]: string | number}>
+Enum<Object | (string | number)[]>
 MaxItems<number>
 MinItems<number>
 Default<BasicType | BasicType[] | BasicFunction>
