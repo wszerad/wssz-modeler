@@ -2,7 +2,7 @@
 	"name": "@wssz/modeler",
 	"author": "wszerad91@gmail.com",
 	"license": "MIT",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"main": "index.ts",
 	"devDependencies": {
 		"@types/chai": "^4.2.0",

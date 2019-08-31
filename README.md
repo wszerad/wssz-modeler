@@ -33,8 +33,23 @@ class Example {
     overwrittenType: any
 }
 
-getMarkers(CustomClass).get('simpleType').get(Type))        // String
-getMarkers(CustomClass).get('overwrittenType').get(Type))   // also String
+getMarkers(Example).get('simpleType').get(Type))        // String
+getMarkers(Example).get('overwrittenType').get(Type))   // also String
+```
+
+* Build-in "@Items" decorator
+
+```ts
+class Example {
+    @Items()
+    simpleArray: string[];
+    
+    @Items(String)
+    overwrittenType: any
+}
+
+getMarkers(Example).get('simpleType').get(Items))        // String
+getMarkers(Example).get('overwrittenType').get(Items))   // also String
 ```
 
 ## Methods and build-in decorators
@@ -81,7 +96,6 @@ MaxItems<number>
 MinItems<number>
 Default<BasicType | BasicType[] | BasicFunction>
 Example<BasicType>
-ArrayType<Object>
 UniqueItems<undefined>
 Examples<ExamplesType>
 Description<string>

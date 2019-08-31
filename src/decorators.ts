@@ -16,11 +16,21 @@ type ExamplesType = {[key: string]: {value: any}};
 type BasicType = string | number | boolean | RegExp | Object;
 type BasicFunction = () => BasicType;
 
-export function Type(data?: any) {
+export function Type(type?: any) {
 	const self = Type;
 	return function (target: any, propertyKey: any) {
 		let detectedType = Reflect.getMetadata('design:type', target, propertyKey);
-		setMetadata<any>(self, data || detectedType, target, propertyKey);
+		setMetadata<any>(self, type || detectedType, target, propertyKey);
+	}
+}
+
+export function Items(type?: any) {
+	const self = Items;
+	return function (target: any, propertyKey: any) {
+		setMetadata<any>(Type, Array, target, propertyKey);
+		if (type !== undefined) {
+			setMetadata<any>(self, type, target, propertyKey);
+		}
 	}
 }
 
@@ -39,7 +49,6 @@ export const MaxItems = defineMarker<number>();
 export const MinItems = defineMarker<number>();
 export const Default = defineMarker<BasicType | BasicType[] | BasicFunction>();
 export const Example = defineMarker<BasicType>();
-export const ArrayType = defineMarker<Object>();
 export const UniqueItems = defineMarker<undefined>();
 export const Examples = defineMarker<ExamplesType>();
 export const Description = defineMarker<string>();

@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 const markerMeta = Symbol();
 
-export type PropertyKey = string | symbol;
+export type PropertyKey = string | number;
 export type Markers = Map<PropertyKey, Map<Function, any>>;
 
 export function defineMarker(): (options: any) => Function
