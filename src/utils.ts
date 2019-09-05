@@ -3,11 +3,12 @@ import 'reflect-metadata';
 const markerMeta = Symbol();
 
 export type PropertyKey = string | number;
-export type Markers = Map<PropertyKey, Map<Function, any>>;
+export type PropMarkers = Map<Function, any>;
+export type Markers = Map<PropertyKey, PropMarkers>;
 
-export function defineMarker(): (options: any) => Function
+export function defineMarker(): (options?: any) => Function
 export function defineMarker<S extends undefined>(): () => Function
-export function defineMarker<S>(): (options: S) => Function
+export function defineMarker<S>(): (options?: S) => Function
 export function defineMarker<S>() {
 	const factored = function (options?: S) {
 		return function (target: any, propertyKey: PropertyKey) {
@@ -42,3 +43,12 @@ export function getMarkers(target: any): Markers {
 export function hasMarkers(target: any): boolean {
 	return Reflect.hasMetadata(markerMeta, target.prototype);
 }
+
+export function extractDecoratorMarkers(markers: PropMarkers, decorator: Function, defaultValue?: any) {
+	if (!markers.has(decorator)) {
+		return;
+	}
+	const marker = markers.get(decorator);
+	return (marker !== undefined) ? marker : defaultValue;
+}
+

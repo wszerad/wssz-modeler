@@ -26,30 +26,15 @@ getMarkers(CustomClass)     // class constructor to inspect
 
 ```ts
 class Example {
-    @Type()
+    @Prop()
     simpleType: string;
     
-    @Type(String)
+    @Prop(String)
     overwrittenType: any
 }
 
-getMarkers(Example).get('simpleType').get(Type))        // String
-getMarkers(Example).get('overwrittenType').get(Type))   // also String
-```
-
-* Build-in "@Items" decorator
-
-```ts
-class Example {
-    @Items()
-    simpleArray: string[];
-    
-    @Items(String)
-    overwrittenType: any
-}
-
-getMarkers(Example).get('simpleType').get(Items))        // String
-getMarkers(Example).get('overwrittenType').get(Items))   // also String
+getMarkers(Example).get('simpleType').get(Prop))        // String
+getMarkers(Example).get('overwrittenType').get(Prop))   // also String
 ```
 
 ## Methods and build-in decorators
@@ -62,6 +47,9 @@ getMarkers(Example).get('overwrittenType').get(Items))   // also String
 
 #### hasMarkers(classConstructor):Boolean
 * return true if there are data stored in class
+ 
+#### extractDecoratorMarkers(markers: Map<Decorator, [OptionsType]>, decorator: Function, defaultValue?: any)
+* return data for given decorator or defaultValue
  
 #### Decorators
 ```ts
@@ -92,11 +80,11 @@ MinLength<number>
 Format<Formats>
 Pattern<RegExp>
 Enum<Object | (string | number)[]>
-MaxItems<number>
-MinItems<number>
+MaxItems<number | number[]>
+MinItems<number | number[]>
 Default<BasicType | BasicType[] | BasicFunction>
 Example<BasicType>
-UniqueItems<undefined>
+UniqueItems<boolean[]>
 Examples<ExamplesType>
 Description<string>
 ```

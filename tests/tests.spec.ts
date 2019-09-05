@@ -1,7 +1,7 @@
 import 'mocha';
 import 'reflect-metadata';
 import { expect } from 'chai';
-import { defineMarker, Description, getMarkers, Type } from '../index';
+import { defineMarker, Description, getMarkers, Prop } from '../index';
 
 class OtherClass {
 
@@ -9,10 +9,10 @@ class OtherClass {
 
 class TestClass {
 	@Description('test')
-	@Type()
+	@Prop()
 	pString: string;
 
-	@Type(OtherClass)
+	@Prop(OtherClass)
 	pOther: OtherClass;
 
 	pInvisible: number;
@@ -33,13 +33,13 @@ describe('tests', () => {
 		});
 	});
 
-	describe('@Type', () => {
+	describe('@Prop', () => {
 		it('should return basic type', () => {
-			expect(getMarkers(TestClass).get('pString').get(Type)).to.equal(String);
+			expect(getMarkers(TestClass).get('pString').get(Prop)).to.equal(String);
 		});
 
 		it('should return extended type', () => {
-			expect(getMarkers(TestClass).get('pOther').get(Type)).to.equal(OtherClass);
+			expect(getMarkers(TestClass).get('pOther').get(Prop)).to.equal(OtherClass);
 		});
 	});
 
