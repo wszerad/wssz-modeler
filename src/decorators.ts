@@ -16,7 +16,7 @@ type ExamplesType = {[key: string]: {value: any}};
 type BasicType = string | number | boolean | RegExp | Object;
 type BasicFunction = () => BasicType;
 
-export function Prop(type?: any) {
+export function Prop(type?: Object) {
 	const self = Prop;
 	return function (target: any, propertyKey: any) {
 		let detectedType = Reflect.getMetadata('design:type', target, propertyKey);
@@ -24,7 +24,15 @@ export function Prop(type?: any) {
 	}
 }
 
-export const Required = defineMarker<undefined>();
+export function Items(type: Object) {
+	const self = Items;
+	return function (target: any, propertyKey: any) {
+		setMetadata<any>(self, type, target, propertyKey);
+	}
+}
+
+export const Required = defineMarker<boolean>(true);
+export const UniqueItems = defineMarker<boolean>(true);
 export const Minimum = defineMarker<number>();
 export const Maximum = defineMarker<number>();
 export const ExclusiveMinimum = defineMarker<number>();
@@ -35,10 +43,9 @@ export const MinLength = defineMarker<number>();
 export const Format = defineMarker<Formats>();
 export const Pattern = defineMarker<RegExp>();
 export const Enum = defineMarker<Object | (string | number)[]>();
-export const MaxItems = defineMarker<number | number[]>();
-export const MinItems = defineMarker<number | number[]>();
+export const MaxItems = defineMarker<number>();
+export const MinItems = defineMarker<number>();
 export const Default = defineMarker<BasicType | BasicType[] | BasicFunction>();
 export const Example = defineMarker<BasicType>();
-export const UniqueItems = defineMarker<boolean[]>();
 export const Examples = defineMarker<ExamplesType>();
 export const Description = defineMarker<string>();

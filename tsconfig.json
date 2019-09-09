@@ -1,8 +1,8 @@
 {
 	"include": [
+		"index.ts",
 		"src/**/*.ts"
 	],
-	"compileOnSave": true,
 	"compilerOptions": {
 		"sourceMap": true,
 		"declaration": true,
