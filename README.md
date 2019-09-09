@@ -2,28 +2,32 @@
 Easy expandable lib for decorating object's properties.
 
 See my plugins:
+* [@wssz/modeler-parser](https://github.com/wszerad/wssz-modeler-parser)
 * [@wssz/modeler-jsonschema](https://github.com/wszerad/wssz-modeler-jsonschema)
-* more soon...
-* Or create yourself :D
 
 ## Usage
 
 * Custom decorator 
 ```ts
 const CustomMarker = defineMarker<String>();
+const CustomMarkerWithStaticValue = defineMarker<String>('flag');
+
 class CustomClass {
     @CustomMarker('test')
+    @CustomMarkerWithStaticValue()
     p: any;
 }
 
 getMarkers(CustomClass)     // class constructor to inspect
     .get('p')               // desired property key
-    .get(CustomMarker))     // data stored of provided decorator
-                            // return 'test'
+    // data stored of provided decorator
+    .get(CustomMarker))     // return 'test'
+    // or
+    .get(CustomMarker))     // return 'flag'
 ```
 
-* Build-in "@Type" decorator
-
+## Build-in decorators
+* @Prop(type?)
 ```ts
 class Example {
     @Prop()
@@ -35,6 +39,31 @@ class Example {
 
 getMarkers(Example).get('simpleType').get(Prop))        // String
 getMarkers(Example).get('overwrittenType').get(Prop))   // also String
+```
+
+* @Items(type?) and readonly @NestedItems
+```ts
+class NestedDate extends ArrayItems {
+    @Items(Date)
+    items: Date[];
+}
+
+class Example {
+    @Items()
+    simpleType: string[];
+    
+    @Items(Date)
+    dataType: Date[];
+
+    @Items(NestedDate)
+    nestedType: Date[][];
+}
+
+getMarkers(Example).get('simpleType').get(Items)         // true (if no type specified)
+getMarkers(Example).get('dataType').get(Items)           // Date
+getMarkers(Example).get('nestedType').get(NestedItems)   // [Markers for each nested level]
+getMarkers(Example).get('nestedType')
+    .get(NestedItems)[0].get(Items)                      // Date
 ```
 
 ## Methods and build-in decorators
@@ -69,7 +98,7 @@ type ExamplesType = {[key: string]: {value: any}};
 type BasicType = string | number | boolean | RegExp | Object;
 type BasicFunction = () => BasicType;
 
-Required<undefined>
+Required<boolean = true>
 Minimum<number>
 Maximum<number>
 ExclusiveMinimum<number>
@@ -80,11 +109,11 @@ MinLength<number>
 Format<Formats>
 Pattern<RegExp>
 Enum<Object | (string | number)[]>
-MaxItems<number | number[]>
-MinItems<number | number[]>
+MaxItems<number>
+MinItems<number>
 Default<BasicType | BasicType[] | BasicFunction>
 Example<BasicType>
-UniqueItems<boolean[]>
+UniqueItems<boolean = true>
 Examples<ExamplesType>
 Description<string>
 ```

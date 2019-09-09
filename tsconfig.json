@@ -1,9 +1,13 @@
 {
 	"include": [
 		"index.ts",
-		"src/**/*.ts"
+		"src/**/*.ts",
+		"tests/**/*.ts"
 	],
 	"compilerOptions": {
+		"strict": true,
+		"strictPropertyInitialization": false,
+		"strictNullChecks": false,
 		"sourceMap": true,
 		"declaration": true,
 		"moduleResolution": "node",
@@ -25,7 +29,6 @@
 	},
 	"exclude": [
 		"node_modules",
-		"tests/*",
 		"dist/*"
 	]
 }

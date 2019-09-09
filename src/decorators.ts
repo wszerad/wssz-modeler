@@ -1,4 +1,4 @@
-import { defineMarker, setMetadata } from './utils';
+import { defineMarker, getMarkers, hasMarkers, Markers, PropertyKey, PropMarkers, setMetadata } from './utils';
 
 export enum Formats {
 	Date = 'date',
@@ -16,21 +16,7 @@ type ExamplesType = {[key: string]: {value: any}};
 type BasicType = string | number | boolean | RegExp | Object;
 type BasicFunction = () => BasicType;
 
-export function Prop(type?: Object) {
-	const self = Prop;
-	return function (target: any, propertyKey: any) {
-		let detectedType = Reflect.getMetadata('design:type', target, propertyKey);
-		setMetadata<any>(self, type || detectedType, target, propertyKey);
-	}
-}
-
-export function Items(type: Object) {
-	const self = Items;
-	return function (target: any, propertyKey: any) {
-		setMetadata<any>(self, type, target, propertyKey);
-	}
-}
-
+export const NestedItems = defineMarker<Markers[]>();
 export const Required = defineMarker<boolean>(true);
 export const UniqueItems = defineMarker<boolean>(true);
 export const Minimum = defineMarker<number>();
@@ -49,3 +35,30 @@ export const Default = defineMarker<BasicType | BasicType[] | BasicFunction>();
 export const Example = defineMarker<BasicType>();
 export const Examples = defineMarker<ExamplesType>();
 export const Description = defineMarker<string>();
+
+export function Prop<T extends Object>(type?: T) {
+	const self = Prop;
+	return function (target: Object, propertyKey: PropertyKey) {
+		let detectedType = Reflect.getMetadata('design:type', target, propertyKey);
+		setMetadata<T>(self, type || detectedType, target, propertyKey);
+	}
+}
+
+export function Items<T extends Object>(type?: T) {
+	const self = Items;
+	const chain: PropMarkers[] = [];
+
+	if (hasMarkers(type) && getMarkers(type).has('items')) {
+		const itemsMarkers = getMarkers(type).get('items') as PropMarkers;
+		chain.push(itemsMarkers);
+
+		if (itemsMarkers.has(Items)) {
+			chain.push(...itemsMarkers.get(NestedItems));
+		}
+	}
+
+	return function (target: Object, propertyKey: PropertyKey) {
+		setMetadata<T | true>(self, type || true, target, propertyKey);
+		setMetadata<PropMarkers[]>(NestedItems, chain, target, propertyKey);
+	}
+}

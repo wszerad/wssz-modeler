@@ -1,19 +1,32 @@
 import 'mocha';
 import 'reflect-metadata';
 import { expect } from 'chai';
-import { defineMarker, Description, getMarkers, Prop } from '../index';
+import { defineMarker, Description, getMarkers, Items, NestedItems, Prop, Required } from '../index';
+import { ArrayItems } from '../src/ArrayItems';
 
-class OtherClass {
+class OtherClass {}
 
+class LevelLevel extends ArrayItems {
+	@Items(Date)
+	@Prop() items: Date[];
+}
+
+class Level extends ArrayItems {
+	@Items(LevelLevel)
+	@Prop() items: Date[][];
 }
 
 class TestClass {
 	@Description('test')
-	@Prop()
-	pString: string;
+	@Prop() pString: string;
 
-	@Prop(OtherClass)
-	pOther: OtherClass;
+	@Prop(OtherClass) pOther: OtherClass;
+
+	@Required() pRequired: boolean;
+
+	@Items() pArray: string[];
+
+	@Items(Level) pNestedArray: Date[][][];
 
 	pInvisible: number;
 }
@@ -21,15 +34,19 @@ class TestClass {
 describe('tests', () => {
 	describe('marker', () => {
 		it('should contain marked properties', () => {
-			expect(getMarkers(TestClass).size).to.equal(2);
+			expect(getMarkers(TestClass).size).to.equal(5);
 		});
 
 		it('should return marked properties names', () => {
-			expect(Array.from(getMarkers(TestClass).keys())).to.eql(['pString', 'pOther']);
+			expect(Array.from(getMarkers(TestClass).keys())).to.eql(['pString', 'pOther', 'pRequired', 'pArray', 'pNestedArray']);
 		});
 
 		it('should return stored data of decorator', () => {
 			expect(getMarkers(TestClass).get('pString').get(Description)).to.equal('test');
+		});
+
+		it('should return static data of required', () => {
+			expect(getMarkers(TestClass).get('pRequired').get(Required)).to.equal(true);
 		});
 	});
 
@@ -43,15 +60,31 @@ describe('tests', () => {
 		});
 	});
 
+	describe('@Items', () => {
+		it('should return basic array', () => {
+			expect(getMarkers(TestClass).get('pArray').get(Items)).to.equal(true);
+			expect(getMarkers(TestClass).get('pArray').get(NestedItems)).to.have.lengthOf(0);
+		});
+
+		it('should return nested array', () => {
+			expect(getMarkers(TestClass).get('pNestedArray').get(Items)).to.equal(Level);
+			expect(getMarkers(TestClass).get('pNestedArray').get(NestedItems)).to.have.lengthOf(2);
+		});
+	});
+
 	describe('tests', () => {
 		it('should create marker and be able to read stored data', () => {
 			const CustomMarker = defineMarker<string>();
+			const CustomMarker2 = defineMarker<string>('pies');
+
 			class CustomClass {
+				@CustomMarker2()
 				@CustomMarker('test')
 				p: any;
 			}
 
 			expect(getMarkers(CustomClass).get('p').get(CustomMarker)).to.equal('test');
+			expect(getMarkers(CustomClass).get('p').get(CustomMarker2)).to.equal('pies');
 		});
 	});
 });
