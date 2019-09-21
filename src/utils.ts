@@ -37,6 +37,10 @@ export function setMetadata<S>(self: Function, data: S, target: Object, property
 }
 
 export function getMarkers(target: any): Markers {
+	if (!target || !target.prototype) {
+		return new Map();
+	}
+
 	return Reflect.getMetadata(markerMeta, target.prototype);
 }
 

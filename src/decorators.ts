@@ -35,6 +35,7 @@ export const Default = defineMarker<BasicType | BasicType[] | BasicFunction>();
 export const Example = defineMarker<BasicType>();
 export const Examples = defineMarker<ExamplesType>();
 export const Description = defineMarker<string>();
+export const Nullable = defineMarker<boolean>(true);
 
 export function Prop<T extends Object>(type?: T) {
 	const self = Prop;

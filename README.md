@@ -4,6 +4,7 @@ Easy expandable lib for decorating object's properties.
 See my plugins:
 * [@wssz/modeler-parser](https://github.com/wszerad/wssz-modeler-parser)
 * [@wssz/modeler-jsonschema](https://github.com/wszerad/wssz-modeler-jsonschema)
+* [@wssz/modeler-nestjs](https://github.com/wszerad/wssz-modeler-nestjs)
 
 ## Usage
 
@@ -116,4 +117,5 @@ Example<BasicType>
 UniqueItems<boolean = true>
 Examples<ExamplesType>
 Description<string>
+Nullable<boolean = true>
 ```
