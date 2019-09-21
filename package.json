@@ -2,12 +2,11 @@
 	"name": "@wssz/modeler",
 	"author": "wszerad91@gmail.com",
 	"license": "MIT",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"prepublish": "tsc",
-		"publish": "npm publish",
 		"test": "mocha --require ts-node/register ./tests/*"
 	},
 	"devDependencies": {
