@@ -72,7 +72,7 @@ describe('tests', () => {
 		});
 	});
 
-	describe('tests', () => {
+	describe('custom marker', () => {
 		it('should create marker and be able to read stored data', () => {
 			const CustomMarker = defineMarker<string>();
 			const CustomMarker2 = defineMarker<string>('pies');
