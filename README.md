@@ -67,6 +67,17 @@ getMarkers(Example).get('nestedType')
     .get(NestedItems)[0].get(Items)                      // Date
 ```
 
+* @Attach(decorators: Function[])
+```ts
+class Example {
+    @Attach([Prop(), Required()])
+    simpleType: string;
+}
+
+getMarkers(Example).get('simpleType').get(Prop))        // String
+getMarkers(Example).get('simpleType').get(Required))    // true
+```
+
 ## Methods and build-in decorators
 
 #### defineMarker<OptionsType>(options: OptionsType): Decorator

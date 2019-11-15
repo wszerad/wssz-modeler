@@ -63,3 +63,9 @@ export function Items<T extends Object>(type?: T) {
 		setMetadata<PropMarkers[]>(NestedItems, chain, target, propertyKey);
 	}
 }
+
+export function Attach(decorators: Function[]) {
+	return function (target: Object, propertyKey: PropertyKey) {
+		decorators.forEach(decorator => decorator(target, propertyKey));
+	}
+}

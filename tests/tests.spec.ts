@@ -1,7 +1,7 @@
 import 'mocha';
 import 'reflect-metadata';
 import { expect } from 'chai';
-import { defineMarker, Description, getMarkers, Items, NestedItems, Prop, Required } from '../index';
+import { Attach, defineMarker, Description, getMarkers, Items, NestedItems, Nullable, Prop, Required } from '../index';
 import { ArrayItems } from '../src/ArrayItems';
 
 class OtherClass {}
@@ -29,16 +29,18 @@ class TestClass {
 	@Items(Level) pNestedArray: Date[][][];
 
 	pInvisible: number;
+
+	@Attach([Prop(), Required()]) pAttach: boolean;
 }
 
 describe('tests', () => {
 	describe('marker', () => {
 		it('should contain marked properties', () => {
-			expect(getMarkers(TestClass).size).to.equal(5);
+			expect(getMarkers(TestClass).size).to.equal(6);
 		});
 
 		it('should return marked properties names', () => {
-			expect(Array.from(getMarkers(TestClass).keys())).to.eql(['pString', 'pOther', 'pRequired', 'pArray', 'pNestedArray']);
+			expect(Array.from(getMarkers(TestClass).keys())).to.eql(['pString', 'pOther', 'pRequired', 'pArray', 'pNestedArray', 'pAttach']);
 		});
 
 		it('should return stored data of decorator', () => {
@@ -69,6 +71,16 @@ describe('tests', () => {
 		it('should return nested array', () => {
 			expect(getMarkers(TestClass).get('pNestedArray').get(Items)).to.equal(Level);
 			expect(getMarkers(TestClass).get('pNestedArray').get(NestedItems)).to.have.lengthOf(2);
+		});
+	});
+
+	describe('@Attach', () => {
+		it('should return basic type', () => {
+			expect(getMarkers(TestClass).get('pAttach').get(Prop)).to.equal(Boolean);
+		});
+
+		it('should return attached decorator', () => {
+			expect(getMarkers(TestClass).get('pAttach').get(Required)).to.equal(true);
 		});
 	});
 
