@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-export const markerMeta = Symbol();
+export const markerMeta = Symbol.for('modelerMarker');
 
 export type PropertyKey = string | symbol;
 export type PropMarkers = Map<Function, any>;
