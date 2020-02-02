@@ -17,7 +17,7 @@ jobs:
           npm ci
           npm test
       - name: Build
-        run: npm build
+        run: npm run-script build
       - name: Publish
         run: npm publish
         env:
