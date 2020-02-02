@@ -12,6 +12,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 13
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@wssz'
       - name: Test
         run: |
           npm ci
@@ -19,6 +21,6 @@ jobs:
       - name: Build
         run: npm run-script build
       - name: Publish
-        run: npm publish --access public
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
