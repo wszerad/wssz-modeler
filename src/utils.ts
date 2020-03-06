@@ -18,12 +18,15 @@ export function defineMarker<S>(staticValue: S) {
 	return factored;
 }
 
+const modelerMap = new Map<string, any>();
+
 export function setMetadata<S>(self: Function, data: S, target: Object, propertyKey: PropertyKey) {
 	let metaData = Reflect.getMetadata(markerMeta, target);
 
 	if (!metaData) {
 		metaData = new Map();
-		Reflect.defineMetadata(markerMeta, metaData, target)
+		Reflect.defineMetadata(markerMeta, metaData, target);
+		modelerMap.set((target as Function).constructor.name, target);
 	}
 
 	let propertyData = metaData.get(propertyKey);
@@ -34,6 +37,11 @@ export function setMetadata<S>(self: Function, data: S, target: Object, property
 	}
 
 	propertyData.set(self, data);
+}
+
+export function getMarkersByName(name: string) {
+	const target = modelerMap.get(name);
+	return Reflect.getMetadata(markerMeta, target) || new Map();
 }
 
 export function getMarkers(target: any): Markers {

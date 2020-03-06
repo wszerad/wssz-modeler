@@ -1,7 +1,18 @@
 import 'mocha';
 import 'reflect-metadata';
 import { expect } from 'chai';
-import { Attach, defineMarker, Description, getMarkers, Items, NestedItems, Nullable, Prop, Required } from '../index';
+import {
+	Attach,
+	defineMarker,
+	Description,
+	getMarkers,
+	getMarkersByName,
+	Items,
+	NestedItems,
+	Nullable,
+	Prop,
+	Required
+} from '../index';
 import { ArrayItems } from '../src/ArrayItems';
 
 class OtherClass {}
@@ -37,6 +48,10 @@ describe('tests', () => {
 	describe('marker', () => {
 		it('should contain marked properties', () => {
 			expect(getMarkers(TestClass).size).to.equal(6);
+		});
+
+		it('should contain marked properties extracted by class-name', () => {
+			expect(getMarkersByName(TestClass.name).size).to.equal(6);
 		});
 
 		it('should return marked properties names', () => {
