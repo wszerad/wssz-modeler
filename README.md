@@ -86,6 +86,9 @@ getMarkers(Example).get('simpleType').get(Required))    // true
 #### getMarkers(classConstructor): Map<propKey, Map<Decorator, [OptionsType]>>
 * return data stored in class
 
+#### getMarkersByName(classNAme): Map<propKey, Map<Decorator, [OptionsType]>>
+* return data stored in decorated class based on name
+
 #### hasMarkers(classConstructor):Boolean
 * return true if there are data stored in class
  
