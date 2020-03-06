@@ -41,7 +41,7 @@ export function setMetadata<S>(self: Function, data: S, target: Object, property
 
 export function getMarkers(target: any | string): Markers {
 	if (typeof target === 'string') {
-		target = modelerMap.get(name);
+		target = modelerMap.get(target);
 		return Reflect.getMetadata(markerMeta, target);
 	} else if (!target || !target.prototype) {
 		return new Map();
@@ -52,7 +52,7 @@ export function getMarkers(target: any | string): Markers {
 
 export function hasMarkers(target: any | string): boolean {
 	if (typeof target === 'string') {
-		target = modelerMap.get(name);
+		target = modelerMap.get(target);
 		return Reflect.hasMetadata(markerMeta, target);
 	}
 
