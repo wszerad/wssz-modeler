@@ -25,4 +25,4 @@ export {
 	Attach
 } from './src/decorators';
 export {ArrayItems} from './src/ArrayItems';
-export {defineMarker, getMarkers, getMarkersByName, hasMarkers, extractDecoratorMarkers, Markers, PropMarkers} from './src/utils';
+export {defineMarker, getMarkers, hasMarkers, extractDecoratorMarkers, Markers, PropMarkers} from './src/utils';

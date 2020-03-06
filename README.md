@@ -83,13 +83,10 @@ getMarkers(Example).get('simpleType').get(Required))    // true
 #### defineMarker<OptionsType>(options: OptionsType): Decorator
 * create new decorator
 
-#### getMarkers(classConstructor): Map<propKey, Map<Decorator, [OptionsType]>>
+#### getMarkers(classConstructor | className): Map<propKey, Map<Decorator, [OptionsType]>>
 * return data stored in class
 
-#### getMarkersByName(classNAme): Map<propKey, Map<Decorator, [OptionsType]>>
-* return data stored in decorated class based on name
-
-#### hasMarkers(classConstructor):Boolean
+#### hasMarkers(classConstructor | className):Boolean
 * return true if there are data stored in class
  
 #### extractDecoratorMarkers(markers: Map<Decorator, [OptionsType]>, decorator: Function, defaultValue?: any)
