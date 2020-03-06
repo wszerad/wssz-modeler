@@ -6,10 +6,8 @@ import {
 	defineMarker,
 	Description,
 	getMarkers,
-	getMarkersByName,
 	Items,
 	NestedItems,
-	Nullable,
 	Prop,
 	Required
 } from '../index';
@@ -51,7 +49,7 @@ describe('tests', () => {
 		});
 
 		it('should contain marked properties extracted by class-name', () => {
-			expect(getMarkersByName(TestClass.name).size).to.equal(6);
+			expect(getMarkers(TestClass.name).size).to.equal(6);
 		});
 
 		it('should return marked properties names', () => {

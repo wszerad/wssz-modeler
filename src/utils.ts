@@ -39,20 +39,23 @@ export function setMetadata<S>(self: Function, data: S, target: Object, property
 	propertyData.set(self, data);
 }
 
-export function getMarkersByName(name: string) {
-	const target = modelerMap.get(name);
-	return Reflect.getMetadata(markerMeta, target) || new Map();
-}
-
-export function getMarkers(target: any): Markers {
-	if (!target || !target.prototype) {
+export function getMarkers(target: any | string): Markers {
+	if (typeof target === 'string') {
+		target = modelerMap.get(name);
+		return Reflect.getMetadata(markerMeta, target);
+	} else if (!target || !target.prototype) {
 		return new Map();
 	}
 
 	return Reflect.getMetadata(markerMeta, target.prototype);
 }
 
-export function hasMarkers(target: any): boolean {
+export function hasMarkers(target: any | string): boolean {
+	if (typeof target === 'string') {
+		target = modelerMap.get(name);
+		return Reflect.hasMetadata(markerMeta, target);
+	}
+
 	return target && target.prototype && Reflect.hasMetadata(markerMeta, target.prototype);
 }
 
