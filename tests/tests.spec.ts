@@ -5,7 +5,7 @@ import {
 	Attach,
 	defineMarker,
 	Description,
-	getMarkers,
+	getMarkers, hasMarkers,
 	Items,
 	NestedItems,
 	Prop,
@@ -44,6 +44,26 @@ class TestClass {
 
 describe('tests', () => {
 	describe('marker', () => {
+		it('should recognize Modeler', () => {
+			expect(hasMarkers(TestClass)).to.equal(true);
+		})
+
+		it('should recognize Modeler by name', () => {
+			expect(hasMarkers(TestClass.name)).to.equal(true);
+		})
+
+		it('should not-recognize Modeler (JS object)', () => {
+			expect(hasMarkers(String)).to.equal(false);
+		})
+
+		it('should not-recognize Modeler (some string)', () => {
+			expect(hasMarkers('String')).to.equal(false);
+		})
+
+		it('should not-recognize Modeler (null)', () => {
+			expect(hasMarkers(null)).to.equal(false);
+		})
+
 		it('should contain marked properties', () => {
 			expect(getMarkers(TestClass).size).to.equal(6);
 		});

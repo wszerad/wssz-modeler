@@ -24,5 +24,7 @@ export {
 	Items,
 	Attach
 } from './src/decorators';
-export {ArrayItems} from './src/ArrayItems';
-export {defineMarker, getMarkers, hasMarkers, extractDecoratorMarkers, Markers, PropMarkers} from './src/utils';
+export { ArrayItems } from './src/ArrayItems';
+export {
+	defineMarker, getMarkers, hasMarkers, extractDecoratorMarkers, Markers, PropMarkers
+} from './src/utils';
