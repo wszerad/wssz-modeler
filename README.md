@@ -24,7 +24,7 @@ getMarkers(CustomClass)     // class constructor to inspect
     // data stored of provided decorator
     .get(CustomMarker))     // return 'test'
     // or
-    .get(CustomMarker))     // return 'flag'
+    .get(CustomMarkerWithStaticValue))     // return 'flag'
 ```
 
 ## Build-in decorators
