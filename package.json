@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"reflect-metadata": "^0.1.13",
-		"typescript": "^3.9.3"
+		"typescript": "^3.9.6"
 	},
 	"repository": {
 		"type": "git",
